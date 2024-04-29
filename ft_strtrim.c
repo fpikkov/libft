@@ -6,7 +6,7 @@
 /*   By: fpikkov <fpikkov@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 12:11:37 by fpikkov           #+#    #+#             */
-/*   Updated: 2024/04/22 17:42:25 by fpikkov          ###   ########.fr       */
+/*   Updated: 2024/04/29 17:47:37 by fpikkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static size_t	ft_endtrim(char const *s1, char const *set)
 	i = 0;
 	while (s1[i] != '\0')
 		i++;
-	i--;
+	if (i > 0)
+		i--;
 	match = 0;
 	j = 0;
 	while (set[j] != '\0')

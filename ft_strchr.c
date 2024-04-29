@@ -6,18 +6,20 @@
 /*   By: fpikkov <fpikkov@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:35:04 by fpikkov           #+#    #+#             */
-/*   Updated: 2024/04/18 15:17:43 by fpikkov          ###   ########.fr       */
+/*   Updated: 2024/04/29 14:15:47 by fpikkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 char	*ft_strchr(const char *s, int c)
 {
 	char	*ptr;
+	char	ch;
 
+	ch = (char) c;
 	ptr = (char *) s;
-	while (*ptr != c && *ptr)
+	while (*ptr != ch && *ptr)
 		ptr++;
-	if (*ptr == c)
+	if (*ptr == ch)
 		return (ptr);
 	return (0);
 }

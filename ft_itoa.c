@@ -6,7 +6,7 @@
 /*   By: fpikkov <fpikkov@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:35:09 by fpikkov           #+#    #+#             */
-/*   Updated: 2024/04/24 11:27:24 by fpikkov          ###   ########.fr       */
+/*   Updated: 2024/04/29 18:13:17 by fpikkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,22 @@ char	*ft_itoa(int n)
 	char	*arg;
 	size_t	count;
 	int		sign;
+	long	nb;
 
 	sign = 1;
 	count = ft_char_counter(n);
-	arg = (char *)malloc(count * sizeof(char));
+	arg = (char *)malloc((count + 1) * sizeof(char));
 	if (!arg)
 		return (0);
 	arg[count] = '\0';
 	if (n < 0)
-	{
 		sign *= -1;
-		n *= sign;
-	}
+	nb = (long) n;
+	nb *= sign;
 	while (count--)
 	{
-		arg[count] = (n % 10 + '0');
-		n = n / 10;
+		arg[count] = (nb % 10 + '0');
+		nb = nb / 10;
 	}
 	if (sign < 0)
 		arg[++count] = '-';

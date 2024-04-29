@@ -6,7 +6,7 @@
 /*   By: fpikkov <fpikkov@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:32:16 by fpikkov           #+#    #+#             */
-/*   Updated: 2024/04/22 10:40:11 by fpikkov          ###   ########.fr       */
+/*   Updated: 2024/04/25 17:52:35 by fpikkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	size_t	i;
 
+	if (!dst && !src)
+		return (dst);
 	if (dst < src)
 	{
 		i = 0;
@@ -29,9 +31,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	{
 		i = len;
 		while (i--)
-		{
 			((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
-		}
 	}
 	return (dst);
 }
