@@ -6,56 +6,65 @@
 /*   By: fpikkov <fpikkov@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 13:38:39 by fpikkov           #+#    #+#             */
-/*   Updated: 2024/04/23 18:10:57 by fpikkov          ###   ########.fr       */
+/*   Updated: 2024/05/02 10:45:27 by fpikkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Splits should start at one to properlly mallocate the array
-static size_t	ft_split_amount(char const *s, char c)
+// Counts the total amount of splits required
+static size_t	ft_total_splits(char const *s, char c)
 {
 	size_t	splits;
+	int		word;
 
-	splits = 1;
-	while (*s++)
+	splits = 0;
+	word = 0;
+	while (*s)
+	{
 		if (*s == c)
+			word = 0;
+		if (*s != c && word == 0)
+		{
+			word = 1;
 			splits++;
+		}
+		s++;
+	}
 	return (splits);
 }
 
-static size_t	ft_find_end(char const *s, char c, size_t start)
+// Frees the memory in case of allocation failure
+static char	**ft_error(char **arr, size_t i)
 {
-	size_t	end;
-
-	end = start;
-	while (s[end] != c && s[end] != '\0')
-		end++;
-	return (end);
+	while (i)
+		free(arr[i--]);
+	free(arr);
+	return (0);
 }
 
 char	**ft_split(char const *s, char c)
 {
 	char	**ptr;
 	size_t	splits;
-	size_t	start;
 	size_t	index;
-	size_t	end;
 
-	splits = ft_split_amount(s, c);
+	splits = ft_total_splits(s, c);
 	ptr = (char **)malloc((splits + 1) * sizeof(char *));
 	if (!ptr)
 		return (0);
-	start = 0;
 	index = 0;
 	while (index < splits)
 	{
-		end = ft_find_end(s, c, start);
-		ptr[index] = (char *)malloc((end - start + 1) * sizeof(char));
-		ft_strlcpy(ptr[index], &s[start], (end - start + 1));
+		while (*s == c)
+			s++;
+		ptr[index] = ft_substr(s, 0, (ft_strchr(s, c) - s));
+		if (!ptr[index])
+			return (ft_error(ptr, index));
+		while (*s != c && *s)
+			s++;
 		index++;
-		start = ++end;
 	}
-	ptr[index] = NULL;
+	ptr[index] = 0;
 	return (ptr);
 }
