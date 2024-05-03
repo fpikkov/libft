@@ -6,7 +6,7 @@
 /*   By: fpikkov <fpikkov@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:08:49 by fpikkov           #+#    #+#             */
-/*   Updated: 2024/04/29 13:51:46 by fpikkov          ###   ########.fr       */
+/*   Updated: 2024/05/03 20:40:16 by fpikkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	lenstr = ft_strlen(s);
 	if ((size_t)start >= lenstr)
 		len = 0;
-	if (len > lenstr)
+	else if (len > lenstr || (size_t)start + len > lenstr)
 		len = lenstr - start;
 	ptr = (char *)malloc((len + 1) * sizeof(char));
 	if (!ptr)

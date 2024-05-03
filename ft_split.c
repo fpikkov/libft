@@ -6,7 +6,7 @@
 /*   By: fpikkov <fpikkov@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 13:38:39 by fpikkov           #+#    #+#             */
-/*   Updated: 2024/05/02 10:45:27 by fpikkov          ###   ########.fr       */
+/*   Updated: 2024/05/03 21:04:06 by fpikkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static size_t	ft_total_splits(char const *s, char c)
 static char	**ft_error(char **arr, size_t i)
 {
 	while (i)
-		free(arr[i--]);
+		free(arr[--i]);
 	free(arr);
 	return (0);
 }
@@ -49,11 +49,11 @@ char	**ft_split(char const *s, char c)
 	size_t	splits;
 	size_t	index;
 
+	index = 0;
 	splits = ft_total_splits(s, c);
 	ptr = (char **)malloc((splits + 1) * sizeof(char *));
 	if (!ptr)
-		return (0);
-	index = 0;
+		return (ft_error(ptr, index));
 	while (index < splits)
 	{
 		while (*s == c)
