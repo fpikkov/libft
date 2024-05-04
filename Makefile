@@ -21,11 +21,8 @@ OBJS = ${SRCS:.c=.o}
 B_OBJS = ${B_SRCS:.c=.o}
 
 
-.PHONY: all re clean fclean bonus
-all: ${NAME}
-
-${NAME}: ${OBJS}
-	ar rcs $@ $?
+all: ${OBJS}
+	ar rcs ${NAME} ${OBJS}
 
 %.o : %.c
 	${CC} ${CFLAGS} -c $?
@@ -38,7 +35,7 @@ fclean: clean
 
 re: fclean all
 
-bonus: ${NAME}
+bonus: ${OBJS} ${B_OBJS}
+	ar rcs ${NAME} ${OBJS} ${B_OBJS}
 
-${NAME}: ${OBJS} ${B_OBJS}
-	ar rcs $@ $?
+.PHONY: all re clean fclean bonus
