@@ -21,21 +21,30 @@ OBJS = ${SRCS:.c=.o}
 B_OBJS = ${B_SRCS:.c=.o}
 
 
-all: ${OBJS}
-	ar rcs ${NAME} ${OBJS}
+all: ${NAME}
+	
+${NAME}: ${OBJS} 
+	ar rcs $@ $^
 
-%.o : %.c
-	${CC} ${CFLAGS} -c $?
+${OBJS}: %.o : %.c
+	${CC} ${CFLAGS} -c $< 
+
+${B_OBJS}: %.o : %.c
+	${CC} ${CFLAGS} -c $<
+
+.bonus:	${NAME} ${OBJS} ${B_OBJS}
+	ar rcs $^
+	touch .bonus
 
 clean:
 	rm -f *.o
+	rm -f .bonus
 
 fclean: clean
 	rm -f ${NAME}
 
 re: fclean all
 
-bonus: ${OBJS} ${B_OBJS}
-	ar rcs ${NAME} ${OBJS} ${B_OBJS}
+bonus: .bonus
 
 .PHONY: all re clean fclean bonus
