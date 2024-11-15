@@ -6,31 +6,31 @@
 /*   By: fpikkov <fpikkov@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 20:17:01 by fpikkov           #+#    #+#             */
-/*   Updated: 2024/04/19 12:43:39 by fpikkov          ###   ########.fr       */
+/*   Updated: 2024/09/16 16:06:09 by fpikkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 int	ft_atoi(const char *str)
 {
-	int	nbr;
-	int	sign;
-	int	i;
+	long	nbr;
+	int		sign;
 
 	nbr = 0;
 	sign = 1;
-	i = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
+	while ((*str >= 9 && *str <= 13) || *str == ' ')
+		str++;
+	if (*str == '-' || *str == '+')
+		if (*str++ == '-')
 			sign *= -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
+	while (*str >= '0' && *str <= '9' && (!(nbr > INT_MAX) || !(nbr < INT_MIN)))
 	{
-		nbr = nbr * 10 + str[i] - '0';
-		i++;
+		nbr = nbr * 10 + (*str - '0');
+		str++;
 	}
-	return (nbr * sign);
+	nbr *= sign;
+	if (nbr > INT_MAX || nbr < INT_MIN)
+		return (0);
+	return ((int)nbr);
 }

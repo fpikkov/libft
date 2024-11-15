@@ -54,3 +54,6 @@ dkms.conf
 # Documentation
 *.pdf
 *.md
+
+# Project
+obj/
